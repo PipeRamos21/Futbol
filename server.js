@@ -118,24 +118,11 @@ const obtenerPartidos = async () => {
         });
 
         let partidos = response.data.response;
+
         if (!partidos || partidos.length === 0) {
             console.log("❌ No se encontraron partidos para hoy.");
             return;
         }
-        partidos = partidos.slice(0, 20);
-
-        await Partidos.insertMany(partidos.map(partido => ({
-            league: partido.league,
-            teams: partido.teams,
-            fixture: partido.fixture,
-            goals: partido.goals,
-        })), { ordered: false });
-
-        console.log(`✅ ${partidos.length} partidos guardados en MongoDB.`);
-    } catch (error) {
-        console.error("❌ Error al obtener los partidos:", error.message);
-    }
-};
 
         // **Limitar a 20 partidos**
         partidos = partidos.slice(0, 20);
