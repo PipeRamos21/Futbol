@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Partidos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Partidos del día</h1>
+
+    <button id="btn-agregar">Agregar partido</button>
+
+    <div id="form-container" class="hidden">
+        <h2>Agregar Partido</h2>
+        <form id="partido-form">
+            <label>Equipo Local: <input type="text" id="home-name" required></label>
+            <label>Logo Local: <input type="url" id="home-logo" required></label>
+
+            <label>Equipo Visitante: <input type="text" id="away-name" required></label>
+            <label>Logo Visitante: <input type="url" id="away-logo" required></label>
+
+            <label>Fecha: <input type="datetime-local" id="date" required></label>
+
+            <label>Estado: <input type="text" id="status-long" required></label>
+            <label>Abreviación: <input type="text" id="status-short" required></label>
+
+            <label>Goles Local: <input type="number" id="home-goals" min="0" required></label>
+            <label>Goles Visitante: <input type="number" id="away-goals" min="0" required></label>
+
+            <button type="submit">Guardar Partido</button>
+            <button type="button" id="cancelar">Cancelar</button>
+        </form>
+    </div>
+
+    <div id="partidos-container">
+        <p>Cargando partidos...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
