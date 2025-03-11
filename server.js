@@ -8,7 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI;
 const API_KEY = process.env.API_KEY;
-const API_URL = "https://v3.football.api-sports.io/status"; 
+const API_URL = "https://v3.football.api-sports.io/status";
 
 // ⚠️ Validar variables de entorno antes de continuar
 if (!MONGODB_URI || !API_KEY) {
@@ -118,11 +118,24 @@ const obtenerPartidos = async () => {
         });
 
         let partidos = response.data.response;
-
         if (!partidos || partidos.length === 0) {
             console.log("❌ No se encontraron partidos para hoy.");
             return;
         }
+        partidos = partidos.slice(0, 20);
+
+        await Partidos.insertMany(partidos.map(partido => ({
+            league: partido.league,
+            teams: partido.teams,
+            fixture: partido.fixture,
+            goals: partido.goals,
+        })), { ordered: false });
+
+        console.log(`✅ ${partidos.length} partidos guardados en MongoDB.`);
+    } catch (error) {
+        console.error("❌ Error al obtener los partidos:", error.message);
+    }
+};
 
         // **Limitar a 20 partidos**
         partidos = partidos.slice(0, 20);
